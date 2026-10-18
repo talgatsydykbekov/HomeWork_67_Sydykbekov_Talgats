@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using les70.Models;
+using WebApplication3;
 using WebApplication3.Models;
 
 namespace les70.Controllers;
@@ -11,8 +12,12 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        
-        return View("Main");
+        var model = new IndexViewModel();
+        ViewData["Message"] = "Добрый день, это тестовый текст на главной странице";
+       
+        var result = View("Main",model);
+        result.StatusCode = 200;
+        return result;
     }
 
     public IActionResult Privacy()
