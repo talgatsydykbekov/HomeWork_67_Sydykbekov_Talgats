@@ -1,6 +1,7 @@
 using les70.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication3;
+using WebApplication3.Models;
 using Xunit;
 
 public class HomeControllerTests
@@ -28,6 +29,20 @@ public class HomeControllerTests
         Assert.True(result?.Model is null);
         Assert.EndsWith("сайта.", result?.ViewData["Policy"] as string);
         Assert.Equal(39, (result?.ViewData["Policy"] as string).Length);
+    }
+
+    [Fact]
+    public void TestPageTest()
+    {
+        HomeController controller = new HomeController();
+        ViewResult result = controller.TestPage(12) as ViewResult;
+        Assert.NotNull(result);
+        Assert.Equal("TestPageViewModel", result.ViewName);
+        Assert.Equal(12, (int)controller.ViewBag.Pageincrement);
+        
+        var viewResult = Assert.IsType<ViewResult>(result);
+        var model = Assert.IsType<TestPageViewModel>(viewResult.Model);
+        Assert.Equal(12, model.Page);
     }
  
         
