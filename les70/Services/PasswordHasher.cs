@@ -12,8 +12,9 @@ namespace WebApplication3.Services
         /// <param name="password"></param>
         public byte[] Md5HashPassword(string password)
         {
-            
-            return new byte[16]; 
+            byte[] hash = MD5.HashData(Encoding.UTF8.GetBytes(password));
+            //string result = Convert.ToHexString(hash).ToLowerInvariant();
+            return hash; 
         }
         /// <summary>
         /// Метод принимает в себя MD5 hash (массив байт)
@@ -27,7 +28,8 @@ namespace WebApplication3.Services
             // Convert byte array to string
             string result = BytesToString(bytes, Encoding.UTF8);
            // string? result = Encoding.Default.GetString(bytes);
-            return result;
+           //return result;
+            return Convert.ToHexString(bytes).ToLowerInvariant();
         }
         static string BytesToString(byte[] bytes, Encoding encoding)
         {
